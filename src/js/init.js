@@ -1,3 +1,5 @@
 var Game = require('./game/game.js');
 
-document.addEventListener('DOMContentLoaded', Game.start);
+document.addEventListener('DOMContentLoaded', function() {
+    Game.start();
+});
