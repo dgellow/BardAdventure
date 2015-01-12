@@ -40,3 +40,11 @@ Crafty.c('Bush', {
         this.color('rgb(20, 185, 40)');
     }
 });
+
+Crafty.c('Player', {
+    init: function() {
+        this.requires('Actor, Fourway, Color')
+            .fourway(4)
+            .color('rgb(20, 75, 40)');
+    }
+});

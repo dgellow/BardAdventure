@@ -14,6 +14,9 @@ Game.prototype.start = function() {
     Crafty.init(this.getWidth(), this.getHeight());
     Crafty.background('rgb(249, 223, 125)');
 
+    // Player character
+    Crafty.e('Player').grid(this.mapGrid).at(5, 5);
+
     // Place trees
     generateForest(this.mapGrid);
 };
