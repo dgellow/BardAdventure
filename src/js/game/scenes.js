@@ -1,9 +1,19 @@
 var _ = require('lodash');
 
+Crafty.scenes = {};
+
 // Game scene
 Crafty.scene('Game', function() {
+    // Keep track of occupied tiles
+    Crafty.scenes.Game = {
+        occupiedTiles: createOccupiedArray(Game.mapGrid)
+    };
+
     // Playable character
-    Crafty.e('Player').grid(Game.mapGrid).at(5, 5);
+    Crafty.e('Player')
+        .grid(Game.mapGrid)
+        .at(Game.player.x, Game.player.y);
+    occupy(Game.player.x, Game.player.y);
 
     // Map
     createMap(Game.mapGrid);
@@ -13,6 +23,24 @@ Crafty.scene('Game', function() {
 }, function() {
     this.unbind('VillageVisited', showVictory);
 });
+
+var createOccupiedArray = function(mapGrid) {
+    var rangeX = _.range(mapGrid.width);
+    var rangeY = _.range(mapGrid.height);
+    return _.map(rangeX, function(x) {
+        return _.map(rangeY, function(y) {
+            return false;
+        });
+    });
+};
+
+var isOccupied = function(x, y) {
+    return Crafty.scenes.Game.occupiedTiles[x][y];
+};
+
+var occupy  = function(x, y) {
+    Crafty.scenes.Game.occupiedTiles[x][y] = true;
+};
 
 var createMap = function(mapGrid) {
     var rangeX = _.range(mapGrid.width);
@@ -38,7 +66,10 @@ var generateTrees = function(mapGrid, tilesCoord) {
         .filter(function(t) {
             return isAtEdge(t.x, t.y, mapGrid.width, mapGrid.height);
         }).each(function(t) {
-            Crafty.e('Tree').grid(mapGrid).at(t.x, t.y);
+            if (!isOccupied(t.x, t.y)) {
+                Crafty.e('Tree').grid(mapGrid).at(t.x, t.y);
+                occupy(t.x, t.y);
+            }
         });
 };
 
@@ -47,7 +78,10 @@ var generateBushes = function(mapGrid, tilesCoord) {
         .filter(function(t) {
             return (Math.random() < 0.06) && !isAtEdge(t.x, t.y, mapGrid.width, mapGrid.height);
         }).each(function(t) {
-            Crafty.e('Bush').grid(mapGrid).at(t.x, t.y);
+            if (!isOccupied(t.x, t.y)) {
+                Crafty.e('Bush').grid(mapGrid).at(t.x, t.y);
+                occupy(t.x, t.y);
+            }
         });
 };
 
@@ -56,7 +90,10 @@ var generateVillages = function(mapGrid, tilesCoord) {
         .filter(function(t) {return (Math.random() < 0.02);})
         .take(5)
         .each(function(t) {
-            Crafty.e('Village').grid(mapGrid).at(t.x, t.y);
+            if (!isOccupied(t.x, t.y)) {
+                Crafty.e('Village').grid(mapGrid).at(t.x, t.y);
+                occupy(t.x, t.y);
+            }
         });
 };
 

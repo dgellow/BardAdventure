@@ -5,6 +5,11 @@ var Game = function() {
         tileWidth: 16,
         tileHeight: 16
     };
+
+    this.player = {
+        x: 5,
+        y: 5
+    };
 };
 
 Game.prototype.start = function() {
