@@ -17,8 +17,7 @@ Game.prototype.start = function() {
     // Player character
     Crafty.e('Player').grid(this.mapGrid).at(5, 5);
 
-    // Place trees
-    generateForest(this.mapGrid);
+    createMap(this.mapGrid);
 };
 
 Game.prototype.getWidth = function() {
@@ -29,7 +28,7 @@ Game.prototype.getHeight = function() {
     return this.mapGrid.height * this.mapGrid.tileHeight;
 };
 
-var generateForest = function(mapGrid) {
+var createMap = function(mapGrid) {
     var rangeX = _.range(mapGrid.width);
     var rangeY = _.range(mapGrid.height);
     var tilesCoord = _.flatten(_.map(rangeX, function(x) {
@@ -40,6 +39,7 @@ var generateForest = function(mapGrid) {
 
     generateTrees(mapGrid, tilesCoord);
     generateBushes(mapGrid, tilesCoord);
+    generateVillages(mapGrid, tilesCoord);
 };
 
 var isAtEdge = function(x, y, width, height) {
@@ -62,6 +62,15 @@ var generateBushes = function(mapGrid, tilesCoord) {
             return (Math.random() < 0.06) && !isAtEdge(t.x, t.y, mapGrid.width, mapGrid.height);
         }).each(function(t) {
             Crafty.e('Bush').grid(mapGrid).at(t.x, t.y);
+        });
+};
+
+var generateVillages = function(mapGrid, tilesCoord) {
+    _.chain(tilesCoord)
+        .filter(function(t) {return (Math.random() < 0.02);})
+        .take(5)
+        .each(function(t) {
+            Crafty.e('Village').grid(mapGrid).at(t.x, t.y);
         });
 };
 
