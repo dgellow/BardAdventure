@@ -1,6 +1,7 @@
-var Game = require('./game/game.js');
+Game = require('./game/game.js');
 
 document.addEventListener('DOMContentLoaded', function() {
+    require('./game/scenes.js');
     require('./game/components.js');
     Game.start();
 });
