@@ -18,6 +18,9 @@ Crafty.scene('Game', function() {
     // Map
     createMap(Game.mapGrid);
 
+    // A sound, indicate the beginning of the jouney
+    Crafty.audio.play('ring');
+
     // Events
     this.bind('VillageVisited', showVictory);
 }, function() {
@@ -120,6 +123,9 @@ Crafty.scene('Victory', function() {
         .text('Victory!')
         .css(Game.textStyle);
 
+    // Applause !
+    Crafty.audio.play('applause');
+
     // Events
     this.bind('KeyDown', resetGame);
 }, function() {
@@ -159,7 +165,13 @@ Crafty.scene('Loading', function() {
                      Crafty.audio.add({
                          knock: ['res/door_knock_3x.mp3',
                                  'res/door_knock_3x.ogg',
-                                 'res/door_knock_3x.acc']
+                                 'res/door_knock_3x.acc'],
+                         applause:  ['res/board_room_applause.mp3',
+                                     'res/board_room_applause.ogg',
+                                     'res/board_room_applause.aac'],
+                         ring:      ['res/candy_dish_lid.mp3',
+                                     'res/candy_dish_lid.ogg',
+                                     'res/candy_dish_lid.aac']
                      });
 
                      // Start the game
