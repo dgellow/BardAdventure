@@ -45,10 +45,10 @@ Crafty.c('Player', {
             .fourway(1)
             .stopOnSolids()
             .onHit('Village', this.visitVillage)
-            .animate('PlayerMovingUp', 0, 0, 2)
-            .animate('PlayerMovingRight', 0, 1, 2)
-            .animate('PlayerMovingDown', 0, 2, 2)
-            .animate('PlayerMovingLeft', 0, 3, 2);
+            .reel('PlayerMovingUp', 600, 0, 0, 2)
+            .reel('PlayerMovingRight', 600, 0, 1, 2)
+            .reel('PlayerMovingDown', 600, 0, 2, 2)
+            .reel('PlayerMovingLeft', 600, 0, 3, 2);
 
         // Events
         this.bind('NewDirection', function(data) {
@@ -62,7 +62,7 @@ Crafty.c('Player', {
             } else if (data.y < 0) {
                 this.animate('PlayerMovingUp', Game.player.animSpeed);
             } else {
-                this.stop();
+                this.pauseAnimation();
             }
         });
     },

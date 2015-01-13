@@ -146,37 +146,42 @@ Crafty.scene('Loading', function() {
         .css(Game.textStyle);
 
     // Load assets
-    Crafty.load(['res/16x16_forest_1.gif',
-                 'res/hunter.png',
-                 'res/dook_knock_3x.mp3',
-                 'res/door_knock_3x.ogg',
-                 'res/door_knock_3x.acc'], function() {
-                     // Map
-                     Crafty.sprite(16, 'res/16x16_forest_1.gif', {
-                         sprite_tree: [0, 0],
-                         sprite_bush: [1, 0],
-                         sprite_village: [0, 1]
-                     });
-
-                     // Player
-                     Crafty.sprite(16, 'res/hunter.png', {
-                         sprite_player: [0, 2]
-                     });
-
-                     // Sounds
-                     Crafty.audio.add({
-                         knock: ['res/door_knock_3x.mp3',
-                                 'res/door_knock_3x.ogg',
-                                 'res/door_knock_3x.acc'],
-                         applause:  ['res/board_room_applause.mp3',
-                                     'res/board_room_applause.ogg',
-                                     'res/board_room_applause.aac'],
-                         ring:      ['res/candy_dish_lid.mp3',
-                                     'res/candy_dish_lid.ogg',
-                                     'res/candy_dish_lid.aac']
-                     });
-
-                     // Start the game
-                     Crafty.scene('Game');
-                 });
+    Crafty.load({
+        audio: {
+            knock: ['res/door_knock_3x.mp3',
+                    'res/door_knock_3x.ogg',
+                    'res/door_knock_3x.acc'],
+            applause:  ['res/board_room_applause.mp3',
+                        'res/board_room_applause.ogg',
+                        'res/board_room_applause.aac'],
+            ring:      ['res/candy_dish_lid.mp3',
+                        'res/candy_dish_lid.ogg',
+                        'res/candy_dish_lid.aac']
+        },
+        sprites: {
+            'res/16x16_forest_1.gif': {
+                tile: 16,
+                tileh: 16,
+                map: {
+                    sprite_tree: [0, 0],
+                    sprite_bush: [1, 0],
+                    sprite_village: [0, 1]
+                }
+            },
+            'res/hunter.png': {
+                tile: 16,
+                tileh: 18,
+                map: {sprite_player: [0, 2]}
+            }
+        }
+    }, function() {
+        console.log('Assets loaded.');
+        // Start the game
+        Crafty.scene('Game');
+    }, function() {
+        console.log('Loading assets...');
+    }, function() {
+        console.error('Error while loading assets.');
+        conole.error(arguments);
+    });
 });
