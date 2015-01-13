@@ -127,7 +127,9 @@ Crafty.scene('Victory', function() {
     Crafty.audio.play('applause');
 
     // Events
-    this.bind('KeyDown', resetGame);
+    setTimeout(_.bind(function() {
+        this.bind('KeyDown', resetGame);
+    }, this), 5000);
 }, function() {
     this.unbind('KeyDown', resetGame);
 });
