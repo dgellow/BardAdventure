@@ -41,10 +41,30 @@ Crafty.c('Bush', {
 
 Crafty.c('Player', {
     init: function() {
-        this.requires('Actor, Fourway, Collision, sprite_player')
-            .fourway(4)
+        this.requires('Actor, Fourway, Collision, SpriteAnimation, sprite_player')
+            .fourway(1)
             .stopOnSolids()
-            .onHit('Village', this.visitVillage);
+            .onHit('Village', this.visitVillage)
+            .animate('PlayerMovingUp', 0, 0, 2)
+            .animate('PlayerMovingRight', 0, 1, 2)
+            .animate('PlayerMovingDown', 0, 2, 2)
+            .animate('PlayerMovingLeft', 0, 3, 2);
+
+        // Events
+        this.bind('NewDirection', function(data) {
+            console.log(JSON.stringify(data));
+            if (data.x > 0) {
+                this.animate('PlayerMovingRight', Game.player.animSpeed);
+            } else if (data.x < 0) {
+                this.animate('PlayerMovingLeft', Game.player.animSpeed);
+            } else if (data.y > 0) {
+                this.animate('PlayerMovingDown', Game.player.animSpeed);
+            } else if (data.y < 0) {
+                this.animate('PlayerMovingUp', Game.player.animSpeed);
+            } else {
+                this.stop();
+            }
+        });
     },
 
     stopOnSolids: function() {

@@ -127,13 +127,18 @@ Crafty.scene('Loading', function() {
         .text('Loading ...')
         .css(Game.textStyle);
 
-    // Load sprite map
+    // Load sprites
     Crafty.load(['res/16x16_forest_1.gif'], function() {
+        // Map
         Crafty.sprite(16, 'res/16x16_forest_1.gif', {
             sprite_tree: [0, 0],
             sprite_bush: [1, 0],
-            sprite_village: [0, 1],
-            sprite_player: [1, 1]
+            sprite_village: [0, 1]
+        });
+
+        // Player
+        Crafty.sprite(16, 'res/hunter.png', {
+            sprite_player: [0, 2]
         });
 
         // Start the game

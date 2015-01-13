@@ -8,7 +8,8 @@ var Game = function() {
 
     this.player = {
         x: 5,
-        y: 5
+        y: 5,
+        animSpeed: 8
     };
 
     this.textStyle =  {
