@@ -3,13 +3,45 @@
   <head>
     <title>Introduction to Crafty game engine</title>
     <style type="text/css" media="screen">
-     body { background: black; }
+     body {
+       background: black;
+       text-align: center;
+       color: #DDD;
+       font-family: Arial;
+     }
+
+     .controls {
+       color: #BBB;
+     }
+
+     #cr-stage { margin: 20px auto 0; }
+
+     .bottom {
+       font-size: 12px;
+       color: #888;
+       margin-top: 50px;
+     }
+
+     .bottom a {
+       color: #AAA;
+     }
     </style>
   </head>
   <body>
-    <canvas id="gameArea"></canvas>
-    <script src="/lib/crafty-0.5.3.js"></script>
-    <script src="/js/common.js"></script>
-    <script src="/js/init.js"></script>
+
+    <h2>A Bard Adventure</h2>
+
+    <p>Help the bard visit her friends in each village.</p>
+
+    <p class="controls">Controls: Use W, A, S, and D or arrow keys to move around.</p>
+
+    <div id="cr-stage"></div>
+
+    <p class="bottom">By <a href="https://github.com/dgellow">dgellow</a>.</p>
+    <p class="bottom">Based on "Introduction to Crafty Game Engine", a tutorial on <a href="http://buildnewgames.com" target="_blank">Build New Games</a>.</p>
+
+      <script src="/lib/crafty-0.5.3.js"></script>
+      <script src="/js/common.js"></script>
+      <script src="/js/init.js"></script>
   </body>
 </html>
