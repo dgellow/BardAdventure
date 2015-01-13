@@ -18,7 +18,6 @@ var Game = function() {
         'color': 'white',
         'text-align': 'center'
     };
-
 };
 
 Game.prototype.start = function() {

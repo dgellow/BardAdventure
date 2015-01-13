@@ -85,15 +85,25 @@ var generateBushes = function(mapGrid, tilesCoord) {
         });
 };
 
+var getVillagesCoord = function(tilesCoord) {
+    var v = _.chain(tilesCoord)
+        .filter(function(t) {
+            return (Math.random() < 0.02) && !isOccupied(t.x, t.y);
+        }).take(5)
+        .value();
+
+    if (v.length === 5) {
+        return v;
+    } else {
+        return getVillagesCoord(tilesCoord);
+    }
+};
+
 var generateVillages = function(mapGrid, tilesCoord) {
-    _.chain(tilesCoord)
-        .filter(function(t) {return (Math.random() < 0.02);})
-        .take(5)
+    _.chain(getVillagesCoord(tilesCoord))
         .each(function(t) {
-            if (!isOccupied(t.x, t.y)) {
-                Crafty.e('Village').grid(mapGrid).at(t.x, t.y);
-                occupy(t.x, t.y);
-            }
+            Crafty.e('Village').grid(mapGrid).at(t.x, t.y);
+            occupy(t.x, t.y);
         });
 };
 
