@@ -29,23 +29,20 @@ Crafty.c('Actor', {
 
 Crafty.c('Tree', {
     init: function() {
-        this.requires('Actor, Color, Solid');
-        this.color('rgb(20, 125, 40)');
+        this.requires('Actor, Solid, sprite_tree');
     }
 });
 
 Crafty.c('Bush', {
     init: function() {
-        this.requires('Actor, Color, Solid');
-        this.color('rgb(20, 185, 40)');
+        this.requires('Actor, Solid, sprite_bush');
     }
 });
 
 Crafty.c('Player', {
     init: function() {
-        this.requires('Actor, Fourway, Color, Collision')
+        this.requires('Actor, Fourway, Collision, sprite_player')
             .fourway(4)
-            .color('rgb(20, 75, 40)')
             .stopOnSolids()
             .onHit('Village', this.visitVillage);
     },
@@ -70,7 +67,7 @@ Crafty.c('Player', {
 
 Crafty.c('Village', {
     init: function() {
-        this.requires('Actor, Color').color('rgb(170, 125, 40)');
+        this.requires('Actor, sprite_village');
     },
 
     collect: function() {

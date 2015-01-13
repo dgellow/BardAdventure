@@ -10,13 +10,21 @@ var Game = function() {
         x: 5,
         y: 5
     };
+
+    this.textStyle =  {
+        'font-size': '24px',
+        'font-family': 'Arial',
+        'color': 'white',
+        'text-align': 'center'
+    };
+
 };
 
 Game.prototype.start = function() {
     Crafty.init(this.getWidth(), this.getHeight());
-    Crafty.background('rgb(249, 223, 125)');
+    Crafty.background('rgb(87, 109, 20)');
 
-    Crafty.scene('Game');
+    Crafty.scene('Loading');
 };
 
 Game.prototype.getWidth = function() {

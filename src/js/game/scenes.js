@@ -107,7 +107,8 @@ var showVictory = function() {
 Crafty.scene('Victory', function() {
     Crafty.e('2D, DOM, Text')
         .attr({x: 0, y: 0})
-        .text('Victory!');
+        .text('Victory!')
+        .css(Game.textStyle);
 
     // Events
     this.bind('KeyDown', resetGame);
@@ -118,3 +119,24 @@ Crafty.scene('Victory', function() {
 var resetGame = function() {
     Crafty.scene('Game');
 };
+
+// Loading scene
+Crafty.scene('Loading', function() {
+    Crafty.e('2D, DOM, Text')
+        .attr({x:0, y: Game.getHeight() / 2, w: Game.getWidth()})
+        .text('Loading ...')
+        .css(Game.textStyle);
+
+    // Load sprite map
+    Crafty.load(['res/16x16_forest_1.gif'], function() {
+        Crafty.sprite(16, 'res/16x16_forest_1.gif', {
+            sprite_tree: [0, 0],
+            sprite_bush: [1, 0],
+            sprite_village: [0, 1],
+            sprite_player: [1, 1]
+        });
+
+        // Start the game
+        Crafty.scene('Game');
+    });
+});
