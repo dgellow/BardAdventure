@@ -73,10 +73,25 @@ Crafty.c('Player', {
     },
 
     stopMovement: function() {
-        this._speed = 0;
         if (this._movement) {
+            // We know there is a collision with a Solid.
+            // Try to undo the last move on x axis.
             this.x -= this._movement.x;
-            this.y -= this._movement.y;
+
+            // If there still is a collision, try to undo the last move
+            // on y axis.
+            if (this.hit('Solid')) {
+                this.x += this._movement.x;
+                this.y -= this._movement.y;
+            }
+
+            // Still a collision ? It's a diagonal move into an edge.
+            // Undo both moves.
+            if (this.hit('Solid')) {
+                this.x -= this._movement.x;
+            }
+        } else {
+            this._speed = 0;
         }
     },
 
